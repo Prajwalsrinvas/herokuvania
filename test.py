@@ -110,6 +110,7 @@ def home():
     <br><br><br>
     <ul style="font-size:25">
         <li>Used to scrape latest 'n' udemy courses from coursevania.</li>
+        <li>Use /docs endpoint to read documentation.</li>
         <li>Use /table/{num_of_courses} endpoint for tabular output.</li>
         <li>Use /json/{num_of_courses} endpoint for json output.</li>
     </ul>
