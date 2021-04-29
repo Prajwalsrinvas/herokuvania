@@ -91,7 +91,7 @@ def coursevania_scraper(course_count):
     end = time.time()
     df.loc[index] = [
         f"Time taken for {actual_courselink_count} course info to be extracted", '-', f"{round(end - start,2)} seconds"]
-
+    driver.quit()
     return df, d
 
 
