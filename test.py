@@ -12,8 +12,8 @@ df = pd.DataFrame(columns=['Course upload date',
                            'Course upload time', 'Course'])
 d = {}
 
-GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
-CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
+GOOGLE_CHROME_PATH = "/udemy-coupons-api/.apt/usr/bin/google_chrome"
+CHROMEDRIVER_PATH = "/udemy-coupons-api/.chromedriver/bin/chromedriver"
 
 def coursevania_scraper(course_count):
     global df, d
