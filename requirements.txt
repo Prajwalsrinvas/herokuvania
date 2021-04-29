@@ -6,3 +6,4 @@ webdriver-manager
 fastapi 
 aiofiles
 lxml
+uvicorn
