@@ -2,7 +2,6 @@ requests
 pandas
 beautifulsoup4
 selenium 
-webdriver-manager
 fastapi 
 aiofiles
 lxml
