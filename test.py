@@ -1,5 +1,6 @@
 import requests
 import time
+import os
 import pandas as pd
 from math import ceil
 from bs4 import BeautifulSoup
@@ -12,7 +13,7 @@ df = pd.DataFrame(columns=['Course upload date',
                            'Course upload time', 'Course'])
 d = {}
 
-GOOGLE_CHROME_PATH = "/udemy-coupons-api/.apt/usr/bin/google_chrome"
+
 CHROMEDRIVER_PATH = "/udemy-coupons-api/.chromedriver/bin/chromedriver"
 
 def coursevania_scraper(course_count):
@@ -20,11 +21,11 @@ def coursevania_scraper(course_count):
     start = time.time()
     url = 'https://coursevania.com/courses/'
     chrome_options = webdriver.ChromeOptions()
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--no-sandbox')
-    chrome_options.binary_location = GOOGLE_CHROME_PATH
     chrome_options.headless = True
-    driver = webdriver.Chrome(chrome_options=chrome_options)
+    webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     driver.get(url)
     count = 0
 
