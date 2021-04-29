@@ -16,6 +16,7 @@ d = {}
 
 CHROMEDRIVER_PATH = "/udemy-coupons-api/.chromedriver/bin/chromedriver"
 
+
 def coursevania_scraper(course_count):
     global df, d
     start = time.time()
@@ -25,7 +26,8 @@ def coursevania_scraper(course_count):
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--no-sandbox')
     chrome_options.headless = True
-    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    driver = webdriver.Chrome(executable_path=os.environ.get(
+        "CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     driver.get(url)
     count = 0
 
@@ -91,7 +93,6 @@ def coursevania_scraper(course_count):
     end = time.time()
     df.loc[index] = [
         f"Time taken for {actual_courselink_count} course info to be extracted", '-', f"{round(end - start,2)} seconds"]
-    driver.quit()
     return df, d
 
 
@@ -101,8 +102,8 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
-@app.get("/home", response_class=HTMLResponse)
-async def home():
+@app.get("/", response_class=HTMLResponse)
+def home():
     return '''
     <body style="background-color:#E0FFFF;">
     <center><h1>Coursevania course scraper API</h1></center>
@@ -118,32 +119,16 @@ async def home():
 # https://pandas.pydata.org/pandas-docs/version/0.23.4/generated/pandas.DataFrame.to_html.html
 
 
-@app.get("/", response_class=HTMLResponse)
-async def read_item_table_25():
-    df, d = coursevania_scraper(25)
-    df.index += 1
-    with open('index.html') as f:
-        s = f.read()
-    return s.format(df.to_html(justify="center", escape=False))
-
-
-@app.get("/json")
-async def read_item_json_10():
-    _, d = coursevania_scraper(10)
-    return d
-
-
 @app.get("/table/{course_num}", response_class=HTMLResponse)
-async def read_item_table(course_num: int):
+def read_item_table(course_num: int):
     df, _ = coursevania_scraper(course_num)
     df.index += 1
     with open('index.html') as f:
         s = f.read()
-
     return s.format(df.to_html(justify="center", escape=False))
 
 
 @app.get("/json/{course_num}")
-async def read_item_json(course_num: int):
+def read_item_json(course_num: int):
     _, d = coursevania_scraper(course_num)
     return d
