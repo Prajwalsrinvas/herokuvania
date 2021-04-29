@@ -25,7 +25,7 @@ def coursevania_scraper(course_count):
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--no-sandbox')
     chrome_options.headless = True
-    webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     driver.get(url)
     count = 0
 
