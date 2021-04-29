@@ -102,7 +102,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 @app.get("/home", response_class=HTMLResponse)
-def home():
+async def home():
     return '''
     <body style="background-color:#E0FFFF;">
     <center><h1>Coursevania course scraper API</h1></center>
@@ -119,7 +119,7 @@ def home():
 
 
 @app.get("/", response_class=HTMLResponse)
-def read_item_table_25():
+async def read_item_table_25():
     df, d = coursevania_scraper(25)
     df.index += 1
     with open('index.html') as f:
@@ -128,13 +128,13 @@ def read_item_table_25():
 
 
 @app.get("/json")
-def read_item_json_10():
+async def read_item_json_10():
     _, d = coursevania_scraper(10)
     return d
 
 
 @app.get("/table/{course_num}", response_class=HTMLResponse)
-def read_item_table(course_num: int):
+async def read_item_table(course_num: int):
     df, _ = coursevania_scraper(course_num)
     df.index += 1
     with open('index.html') as f:
@@ -144,6 +144,6 @@ def read_item_table(course_num: int):
 
 
 @app.get("/json/{course_num}")
-def read_item_json(course_num: int):
+async def read_item_json(course_num: int):
     _, d = coursevania_scraper(course_num)
     return d
