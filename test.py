@@ -19,7 +19,6 @@ CHROMEDRIVER_PATH = "/udemy-coupons-api/.chromedriver/bin/chromedriver"
 
 def coursevania_scraper(course_count):
     global df, d
-    start = time.time()
     url = 'https://coursevania.com/courses/'
     chrome_options = webdriver.ChromeOptions()
     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
@@ -33,7 +32,6 @@ def coursevania_scraper(course_count):
 
     while True:
         try:
-
             load_more = driver.find_element_by_xpath(
                 '//*[@id="main"]/div[2]/div[1]/div/div[2]/div/div[2]/a')
             time.sleep(2)
@@ -41,7 +39,6 @@ def coursevania_scraper(course_count):
             count += 1
             if count*12 + 12 > course_count:
                 break
-
         except:
             print(f"Clicked 'load more' {count} times!")
             break
@@ -50,7 +47,6 @@ def coursevania_scraper(course_count):
     actual_courselink_count = 0
 
     for url in soup.find_all('div', class_='stm_lms_courses__single--title'):
-
         if actual_courselink_count == course_count:
             print(f'Done extracting {course_count} courses')
             break
@@ -90,15 +86,10 @@ def coursevania_scraper(course_count):
         if actual_courselink_count % 10 == 0:
             print(
                 f"Extracted {actual_courselink_count} udemy links{actual_courselink_count//10 * '.'}")
-    end = time.time()
-    df.loc[index] = [
-        f"Time taken for {actual_courselink_count} course info to be extracted", '-', f"{round(end - start,2)} seconds"]
     return df, d
 
 
 app = FastAPI()
-
-
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
