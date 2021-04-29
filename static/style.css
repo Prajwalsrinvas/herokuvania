@@ -1,0 +1,26 @@
+/* includes alternating gray and white with on-hover color */
+
+.dataframe {
+    font-family: Arial;
+    border-collapse: collapse; 
+    border: 1px solid silver;
+    align-items: center;
+
+}
+
+.dataframe td, th {
+    padding: 5px;
+}
+
+.th{
+    font-size: 18pt; 
+}
+
+.dataframe tr:nth-child(even) {
+    background: #E0E0E0;
+}
+
+.dataframe tr:hover {
+    background: silver;
+    cursor: pointer;
+}
